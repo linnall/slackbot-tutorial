@@ -41,29 +41,60 @@ def command():
       trigger_id=info["trigger_id"],
       view={
         "type": "modal",
-        "callback_id": "modal-identifier",
         "title": {
           "type": "plain_text",
-          "text": "Just a modal"
+          "text": "Add Collection"
         },
         "blocks": [
           {
             "type": "section",
-            "block_id": "section-identifier",
             "text": {
               "type": "mrkdwn",
-              "text": "*Welcome* to ~my~ Block Kit _modal_!"
+              "text": "Mark a collection for IP infringement"
             },
-            "accessory": {
-              "type": "button",
-              "text": {
+            "block_id": "section1",
+          },
+          {
+            "type": "input",
+            "label": {
+              "type": "plain_text",
+              "text": "Address"
+            },
+            "element": {
+              "type": "plain_text_input",
+              "action_id": "address",
+              "placeholder": {
                 "type": "plain_text",
-                "text": "Just a button",
+                "text": "Type in here"
               },
-              "action_id": "button-identifier",
-            }
+            },
+          },
+           {
+            "type": "input",
+            "label": {
+              "type": "plain_text",
+              "text": "Chain (e.g. MAINNET)"
+            },
+            "element": {
+              "type": "plain_text_input",
+              "action_id": "chain",
+              "placeholder": {
+                "type": "plain_text",
+                "text": "Type in here"
+              },
+            },
           }
         ],
+        "close": {
+          "type": "plain_text",
+          "text": "Cancel"
+        },
+        "submit": {
+          "type": "plain_text",
+          "text": "Save"
+        },
+        "private_metadata": "Shhhhhhhh",
+        "callback_id": "view_identifier_12"
       }
     )
   except SlackApiError as e:
