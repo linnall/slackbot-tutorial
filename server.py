@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import ssl
 
 from flask import Flask, request, make_response, Response
 
@@ -9,6 +10,9 @@ from slack_sdk.errors import SlackApiError
 from slack_sdk.signature import SignatureVerifier
 
 from slashCommand import Slash
+
+# python uses a SSL cert store which doesn't support the cert used by slack, this works as a temporary workaround
+ssl._create_default_https_context = ssl._create_unverified_context
 
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
@@ -53,4 +57,4 @@ if __name__ == "__main__":
 
   commander = Slash("Hey there! It works.")
 
-  app.run()
+  app.run(port=8080)
