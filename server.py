@@ -37,10 +37,35 @@ def command():
   # )
 
   try:
-    response = slack_client.chat_postMessage(
-      channel='#{}'.format(info["channel_name"]), 
-      text=commander.getMessage()
-    )#.get()
+    response = slack_client.views_open(
+      trigger_id=info["trigger_id"],
+      view={
+        "type": "modal",
+        "callback_id": "modal-identifier",
+        "title": {
+          "type": "plain_text",
+          "text": "Just a modal"
+        },
+        "blocks": [
+          {
+            "type": "section",
+            "block_id": "section-identifier",
+            "text": {
+              "type": "mrkdwn",
+              "text": "*Welcome* to ~my~ Block Kit _modal_!"
+            },
+            "accessory": {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "Just a button",
+              },
+              "action_id": "button-identifier",
+            }
+          }
+        ],
+      }
+    )
   except SlackApiError as e:
     logging.error('Request to Slack API Failed: {}.'.format(e.response.status_code))
     logging.error(e.response)
